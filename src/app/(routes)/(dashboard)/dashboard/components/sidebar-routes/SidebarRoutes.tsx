@@ -1,8 +1,10 @@
 "use client"
 import { Separator } from "@/components/ui/separator"
 import { useAuth } from "@clerk/nextjs"
-import { dataGeneralSidebar } from "./Sidebar-Routes-data"
+import { dataGeneralSidebar, dataAdminSdiebar } from "./Sidebar-Routes-data"
 import SidebarItem from "./SidebarItem"
+import { isAdministrator } from "@/lib/isAdministrator"
+
 export default function SidebarRoutes() {
 
     const { userId } = useAuth()
@@ -21,6 +23,23 @@ export default function SidebarRoutes() {
                         ))
                     }
                 </div>
+                <Separator />
+                {
+                    isAdministrator(userId) && (
+                        <div className="p-2 md:p-6">
+                            <p className="mb-2 text-slate-900">ADMIN</p>
+                            {
+                                dataAdminSdiebar.map((item, index) => (
+                                    <SidebarItem
+                                        key={index}
+                                        item={item}
+                                    />
+                                ))
+                            }
+                        </div>
+                    )
+                }
+
             </div>
         </div>
     )

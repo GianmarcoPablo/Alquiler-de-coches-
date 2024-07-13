@@ -104,7 +104,7 @@ export default function CarCard(props: CarCardProps) {
                 {
                     car.isPublished ? (
                         <Button variant={"outline"} className='w-full mt-3' onClick={() => handlerPublishCar(false)}>
-                            No publicado
+                            Quitar publicación
                             <Upload className='w-4 h-4 ml-2' strokeWidth={1} />
                         </Button>
                     ) : (
@@ -112,7 +112,7 @@ export default function CarCard(props: CarCardProps) {
                             className='w-full mt-3'
                             onClick={() => handlerPublishCar(true)}
                         >
-                            Publicado
+                            Publicar coche
                             <Upload className='w-4 h-4 ml-2' strokeWidth={1} />
                         </Button>
                     )

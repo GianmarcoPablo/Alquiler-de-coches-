@@ -9,12 +9,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 export type CalendarSelectorProps = React.HtmlHTMLAttributes<HTMLDivElement> & {
-    setDateSelected: React.Dispatch<React.SetStateAction<{ from: Date | undefined; to: Date | undefined }>>
+    setDateSelected: React.Dispatch<React.SetStateAction<{ from: Date | undefined; to: Date | undefined }>>,
+    carPriceDay: string
 }
 
 export default function CalendarSelector(props: CalendarSelectorProps) {
 
-    const { setDateSelected, className } = props
+    const { setDateSelected, className, carPriceDay } = props
 
     const [date, setDate] = useState<DateRange | undefined>({
         from: new Date(),
@@ -41,7 +42,7 @@ export default function CalendarSelector(props: CalendarSelectorProps) {
             {date?.from && date.to && (
                 <>
                     <p className="mt-4 text-lg text-black">Dias totales {daysBetween}</p>
-                    <p>Precio total:  {daysBetween * 30}$ (imp. incluidos)  </p>
+                    <p>Precio total:  {daysBetween * Number(carPriceDay)}$ (imp. incluidos)  </p>
                 </>
             )}
             <Popover>
@@ -74,6 +75,16 @@ export default function CalendarSelector(props: CalendarSelectorProps) {
                             )}
                     </Button>
                 </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                        initialFocus
+                        mode="range"
+                        defaultMonth={date?.from}
+                        selected={date}
+                        onSelect={setDate}
+                        numberOfMonths={2}
+                    />
+                </PopoverContent>
             </Popover>
         </div>
     )

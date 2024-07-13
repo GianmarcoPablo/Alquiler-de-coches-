@@ -3,12 +3,13 @@ import ButtonAddCar from "./components/ButtonAddCar";
 import ListCar from "./components/ListCar";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { isAdministrator } from "@/lib/isAdministrator";
 
 export default async function page() {
 
     const { userId } = auth()
 
-    if (!userId) redirect("/")
+    if (!userId || !isAdministrator(userId)) redirect("/")
 
 
     const cars = await db.car.findMany({
